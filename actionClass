@@ -1,0 +1,490 @@
+package com.tommyHlee.hd;
+
+import java.util.List;
+import java.util.Random;
+
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.RefreshCallback;
+import com.parse.SaveCallback;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TabHost;
+import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class actions extends Activity implements OnClickListener {
+
+	TabHost tabs;
+	Button iAmAgent, kill, dead, defend, confirm1, confirm2, confirm3,
+			confirm4;
+	ParseUser user = new ParseUser();
+	TextView tvDead, tvAgent, tvKill, tvDefend;
+	EditText inputPasswordAction1, inputPasswordAction2, inputPasswordAction3,
+			inputPasswordAction4;
+	public static String filename = "MySharedString";
+	SharedPreferences someData;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.actions);
+		Parse.initialize(this, "UdoENvKtYz7Z6gTE0PSv8aZHb2NBjbiaO21Ra2WF",
+				"OLQ3nb93a9akB8thUQ4zSYhgxyMehVGheAyI2pRJ");
+
+		iAmAgent = (Button) findViewById(R.id.bIAmAgent);
+		kill = (Button) findViewById(R.id.bKill);
+		dead = (Button) findViewById(R.id.bDead);
+		defend = (Button) findViewById(R.id.bDefend);
+		confirm1 = (Button) findViewById(R.id.bConfirm1);
+		confirm2 = (Button) findViewById(R.id.bConfirm2);
+		confirm3 = (Button) findViewById(R.id.bConfirm3);
+		confirm4 = (Button) findViewById(R.id.bConfirm4);
+
+		tabs = (TabHost) findViewById(R.id.thActions);
+		tabs.setup();
+
+		tvDead = (TextView) findViewById(R.id.tvDeadEX);
+		tvAgent = (TextView) findViewById(R.id.tvAgentEX);
+		tvKill = (TextView) findViewById(R.id.tvKillEX);
+		tvDefend = (TextView) findViewById(R.id.tvDefendEX);
+
+		inputPasswordAction1 = (EditText) findViewById(R.id.etActionPassword1);
+		inputPasswordAction2 = (EditText) findViewById(R.id.etActionPassword2);
+		inputPasswordAction3 = (EditText) findViewById(R.id.etActionPassword3);
+		inputPasswordAction4 = (EditText) findViewById(R.id.etActionPassword4);
+
+		TabSpec specs = tabs.newTabSpec("tag1");
+		specs.setContent(R.id.tabIAmAgent);
+		specs.setIndicator("I Am Agent ___!");
+		tabs.addTab(specs);
+
+		specs = tabs.newTabSpec("tag2");
+		specs.setContent(R.id.tabKill);
+		specs.setIndicator("Kill");
+		tabs.addTab(specs);
+
+		specs = tabs.newTabSpec("tag3");
+		specs.setContent(R.id.tabDead);
+		specs.setIndicator("Dead");
+		tabs.addTab(specs);
+
+		specs = tabs.newTabSpec("tag4");
+		specs.setContent(R.id.tabDefend);
+		specs.setIndicator("Defend");
+		tabs.addTab(specs);
+
+		iAmAgent.setOnClickListener(this);
+		kill.setOnClickListener(this);
+		dead.setOnClickListener(this);
+		defend.setOnClickListener(this);
+		confirm1.setOnClickListener(this);
+		confirm2.setOnClickListener(this);
+		confirm3.setOnClickListener(this);
+		confirm4.setOnClickListener(this);
+
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		String passwordCorrect1 = inputPasswordAction1.getText().toString();
+		String passwordCorrect2 = inputPasswordAction2.getText().toString();
+		String passwordCorrect3 = inputPasswordAction3.getText().toString();
+		String passwordCorrect4 = inputPasswordAction4.getText().toString();
+
+		String emailaddress[] = { "WaterGunWarCentennial@gmail.com",
+				"4043098011" };
+
+		ParseQuery query = ParseQuery.getUserQuery();
+
+		switch (arg0.getId()) {
+		case R.id.bConfirm1:
+			if (inputPasswordAction1.getText().toString().equals("")) {
+				Toast blankBoxes = Toast
+						.makeText(actions.this,
+								"You left it empthy, fill them in!",
+								Toast.LENGTH_SHORT);
+				blankBoxes.show();
+
+			} else {
+				iAmAgent.setVisibility(View.VISIBLE);
+				tvAgent.setVisibility(View.VISIBLE);
+				confirm1.setVisibility(View.INVISIBLE);
+				inputPasswordAction1.setVisibility(View.INVISIBLE);
+			}
+			break;
+		case R.id.bConfirm2:
+			if (inputPasswordAction2.getText().toString().equals("")) {
+				Toast blankBoxes = Toast
+						.makeText(actions.this,
+								"You left it empthy, fill them in!",
+								Toast.LENGTH_SHORT);
+				blankBoxes.show();
+
+			} else {
+				kill.setVisibility(View.VISIBLE);
+				tvKill.setVisibility(View.VISIBLE);
+				confirm2.setVisibility(View.INVISIBLE);
+				inputPasswordAction2.setVisibility(View.INVISIBLE);
+			}
+			break;
+		case R.id.bConfirm3:
+			if (inputPasswordAction3.getText().toString().equals("")) {
+				Toast blankBoxes = Toast
+						.makeText(actions.this,
+								"You left it empthy, fill them in!",
+								Toast.LENGTH_SHORT);
+				blankBoxes.show();
+
+			} else {
+				dead.setVisibility(View.VISIBLE);
+				tvDead.setVisibility(View.VISIBLE);
+				confirm3.setVisibility(View.INVISIBLE);
+				inputPasswordAction3.setVisibility(View.INVISIBLE);
+			}
+			break;
+		case R.id.bConfirm4:
+			if (inputPasswordAction4.getText().toString().equals("")) {
+				Toast blankBoxes = Toast
+						.makeText(actions.this,
+								"You left it empthy, fill them in!",
+								Toast.LENGTH_SHORT);
+				blankBoxes.show();
+
+			} else {
+				defend.setVisibility(View.VISIBLE);
+				tvDefend.setVisibility(View.VISIBLE);
+				confirm4.setVisibility(View.INVISIBLE);
+				inputPasswordAction4.setVisibility(View.INVISIBLE);
+			}
+			break;
+		}
+
+		switch (arg0.getId()) {
+		case R.id.bIAmAgent:
+			passwordCorrect1 = inputPasswordAction1.getText().toString();
+			ParseQuery query1 = new ParseQuery("Register");
+			query1.whereEqualTo("email", passwordCorrect1);
+			query1.getFirstInBackground(new GetCallback() {
+				public void done(ParseObject object, ParseException e) {
+					if (object == null) {
+						Toast t = Toast.makeText(actions.this, "Weird",
+								Toast.LENGTH_SHORT);
+						t.show();
+					} else {
+						object.put("iamagent", true);
+						object.saveInBackground();
+						
+
+					}
+				}
+			});
+
+			query = ParseQuery.getUserQuery();
+			query.whereEqualTo("email", passwordCorrect1);
+			query.getFirstInBackground(new GetCallback() {
+				public void done(final ParseObject object, ParseException e) {
+					if (object == null) {
+						Toast t = Toast
+								.makeText(
+										actions.this,
+										"Wrong email, press the back button and try again.",
+										Toast.LENGTH_SHORT);
+						t.show();
+					} else {
+						String passwordCorrect1 = inputPasswordAction1
+								.getText().toString();
+						ParseQuery query1 = new ParseQuery("Register");
+						query1.whereEqualTo("email", passwordCorrect1);
+						query1.getFirstInBackground(new GetCallback() {
+							public void done(ParseObject object,
+									ParseException e) {
+								if (object == null) {
+									Toast t = Toast.makeText(actions.this,
+											"Weird", Toast.LENGTH_SHORT);
+									t.show();
+								} else {
+									String playerName2 = object
+											.getString("fullname");
+									object.put("iamagent", true);
+									object.saveInBackground();
+
+								}
+							}
+						});
+
+						object.saveInBackground(new SaveCallback() {
+							public void done(ParseException e) {
+
+								String fullname = object.getString("fullname");
+								String emailaddress[] = {
+										"WaterGunWarCentennial@gmail.com",
+										"4043098011" };
+								String messageIAmAgent1 = "I am agent (Fill In your agent name)"
+										+ '\n'
+										+ "and I said 'I am agent (Fill In your agent name)' at (Your target name)";
+								Intent emailIAmAgent = new Intent(
+										android.content.Intent.ACTION_SEND);
+								emailIAmAgent.putExtra(
+										android.content.Intent.EXTRA_EMAIL,
+										emailaddress);
+								emailIAmAgent.putExtra(
+										android.content.Intent.EXTRA_SUBJECT,
+										fullname);
+								emailIAmAgent.setType("plain/text");
+								emailIAmAgent.putExtra(
+										android.content.Intent.EXTRA_TEXT,
+										messageIAmAgent1);
+								startActivity(emailIAmAgent);
+							}
+						});
+					}
+				}
+			});
+
+			break;
+		case R.id.bKill:
+
+			passwordCorrect2 = inputPasswordAction2.getText().toString();
+
+			ParseQuery query2 = new ParseQuery("Register");
+			query2.whereEqualTo("email", passwordCorrect2);
+			query2.getFirstInBackground(new GetCallback() {
+				public void done(ParseObject object, ParseException e) {
+					if (object == null) {
+						Toast t = Toast.makeText(actions.this, "Weird",
+								Toast.LENGTH_SHORT);
+						t.show();
+					} else {
+						object.put("iamagent", false);
+						object.saveInBackground();
+						SharedPreferences.Editor editor = someData.edit(); // "hey we are going to edit here"
+						editor.clear();
+						editor.commit();
+
+					}
+				}
+			});
+
+			query = ParseQuery.getUserQuery();
+			query.whereEqualTo("email", passwordCorrect2);
+			query.getFirstInBackground(new GetCallback() {
+				public void done(final ParseObject object, ParseException e) {
+					if (object == null) {
+						Toast t = Toast
+								.makeText(
+										actions.this,
+										"Wrong email, press the back button and try again.",
+										Toast.LENGTH_SHORT);
+						t.show();
+					} else {
+						String passwordCorrect2 = inputPasswordAction2
+								.getText().toString();
+						ParseQuery query1 = new ParseQuery("Register");
+						query1.whereEqualTo("email", passwordCorrect2);
+						query1.getFirstInBackground(new GetCallback() {
+							public void done(ParseObject object,
+									ParseException e) {
+								if (object == null) {
+									Toast t = Toast.makeText(actions.this,
+											"Weird", Toast.LENGTH_SHORT);
+									t.show();
+								} else {
+									String playerName2 = object
+											.getString("fullname");
+									object.put("target", "noone");
+									object.put("hastarget", false);
+									object.put("iamagent", false);
+									object.saveInBackground();
+
+								}
+							}
+						});
+
+						someData = getSharedPreferences(filename, 0);
+						SharedPreferences.Editor editor = someData.edit(); // "hey we are going to edit here"
+						editor.clear();
+						editor.commit();
+						object.saveInBackground(new SaveCallback() {
+							public void done(ParseException e) {
+								// Now let's update it with some new data. In
+								// this case, only cheatMode and score
+								// will get sent to the server. playerName
+								// hasn't changed.
+								String fullname = object.getString("fullname");
+								String emailaddress[] = {
+										"WaterGunWarCentennial@gmail.com",
+										"4043098011" };
+								String messageIAmAgent1 = "I am agent (Fill In your agent name)"
+										+ '\n'
+										+ "and I have successfully killed (Your target name)";
+								Intent emailIAmAgent = new Intent(
+										android.content.Intent.ACTION_SEND);
+								emailIAmAgent.putExtra(
+										android.content.Intent.EXTRA_EMAIL,
+										emailaddress);
+								emailIAmAgent.putExtra(
+										android.content.Intent.EXTRA_SUBJECT,
+										fullname);
+								emailIAmAgent.setType("plain/text");
+								emailIAmAgent.putExtra(
+										android.content.Intent.EXTRA_TEXT,
+										messageIAmAgent1);
+								startActivity(emailIAmAgent);
+							}
+						});
+					}
+				}
+			});
+			
+
+			break;
+		case R.id.bDead:
+			// Set "dead" to 'true'
+			passwordCorrect3 = inputPasswordAction3.getText().toString();
+			ParseQuery query3 = new ParseQuery("Register");
+			query3.whereEqualTo("email", passwordCorrect3);
+			query3.getFirstInBackground(new GetCallback() {
+				public void done(ParseObject object, ParseException e) {
+					if (object == null) {
+						Toast t = Toast.makeText(actions.this, "Weird",
+								Toast.LENGTH_SHORT);
+						t.show();
+					} else {
+						object.put("iamagent", false);
+						object.put("hastarget", false);
+						object.put("dead", true);
+						object.saveInBackground();
+						SharedPreferences.Editor editor = someData.edit(); // "hey we are going to edit here"
+						editor.clear();
+						editor.commit();
+
+					}
+				}
+			});
+
+			query = ParseQuery.getUserQuery();
+			query.whereEqualTo("email", passwordCorrect3);
+			query.getFirstInBackground(new GetCallback() {
+				public void done(final ParseObject object, ParseException e) {
+					if (object == null) {
+						Toast t = Toast
+								.makeText(
+										actions.this,
+										"Wrong email, press the back button and try again.",
+										Toast.LENGTH_SHORT);
+						t.show();
+					} else {
+						object.saveInBackground(new SaveCallback() {
+							public void done(ParseException e) {
+								// Now let's update it with some new data. In
+								// this case, only cheatMode and score
+								// will get sent to the server. playerName
+								// hasn't changed.
+								object.saveInBackground();
+
+								String fullname = object.getString("fullname");
+
+								String emailaddress[] = {
+										"WaterGunWarCentennial@gmail.com",
+										"4043098011" };
+								String messageDead = "I got killed by (agent name) ";
+								Intent emailDead = new Intent(
+										android.content.Intent.ACTION_SEND);
+								emailDead.putExtra(
+										android.content.Intent.EXTRA_EMAIL,
+										emailaddress);
+								emailDead.putExtra(
+										android.content.Intent.EXTRA_SUBJECT,
+										fullname);
+								emailDead.setType("plain/text");
+								emailDead.putExtra(
+										android.content.Intent.EXTRA_TEXT,
+										messageDead);
+								startActivity(emailDead);
+							}
+						});
+					}
+				}
+			});
+
+			someData = getSharedPreferences(filename, 0);
+			SharedPreferences.Editor editor1 = someData.edit(); // "hey we are going to edit here"
+			editor1.clear();
+			editor1.commit();
+
+			break;
+		case R.id.bDefend:
+
+			query = ParseQuery.getUserQuery();
+			query.whereEqualTo("email", passwordCorrect4);
+			query.getFirstInBackground(new GetCallback() {
+				public void done(final ParseObject object, ParseException e) {
+					if (object == null) {
+						Toast t = Toast
+								.makeText(
+										actions.this,
+										"Wrong email, press the back button and try again.",
+										Toast.LENGTH_SHORT);
+						t.show();
+					} else {
+						object.saveInBackground(new SaveCallback() {
+							public void done(ParseException e) {
+								// Now let's update it with some new data. In
+								// this case, only cheatMode and score
+								// will get sent to the server. playerName
+								// hasn't changed.
+								String fullname = object.getString("fullname");
+								String emailaddress[] = {
+										"WaterGunWarCentennial@gmail.com",
+										"4043098011" };
+								String messageIAmAgent1 = "I am agent (Fill In your agent name)"
+										+ '\n'
+										+ "and I have defended against (agent name)";
+								Intent emailIAmAgent = new Intent(
+										android.content.Intent.ACTION_SEND);
+								emailIAmAgent.putExtra(
+										android.content.Intent.EXTRA_EMAIL,
+										emailaddress);
+								emailIAmAgent.putExtra(
+										android.content.Intent.EXTRA_SUBJECT,
+										fullname);
+								emailIAmAgent.setType("plain/text");
+								emailIAmAgent.putExtra(
+										android.content.Intent.EXTRA_TEXT,
+										messageIAmAgent1);
+								startActivity(emailIAmAgent);
+							}
+						});
+					}
+				}
+			});
+
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		finish();
+	}
+
+}
+

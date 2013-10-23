@@ -1,0 +1,183 @@
+package com.tommyHlee.hd;
+
+import java.lang.annotation.Target;
+import java.util.List;
+import java.util.Random;
+
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class assignment extends Activity implements OnClickListener {
+
+	ParseUser user = new ParseUser();
+	TextView target, yourtarget;
+	Button newTarget, confirmEmail;
+	SharedPreferences someData;
+	public static String filename = "MySharedString";
+	EditText typeEmail; 
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.assignment);
+
+		Parse.initialize(this, "UdoENvKtYz7Z6gTE0PSv8aZHb2NBjbiaO21Ra2WF",
+				"OLQ3nb93a9akB8thUQ4zSYhgxyMehVGheAyI2pRJ");
+
+		target = (TextView) findViewById(R.id.tvTarget);
+		newTarget = (Button) findViewById(R.id.bGetNewTarget);
+		yourtarget = (TextView) findViewById (R.id.tvYourCurrenttarget);
+		typeEmail = (EditText)	 findViewById (R.id.etTestingEmail);
+		confirmEmail = (Button) findViewById (R.id.bConfirmEmail);
+
+		newTarget.setOnClickListener(this);
+		confirmEmail.setOnClickListener(this);
+
+		final Random randomGenerator = new Random();
+		
+		someData = getSharedPreferences(filename, 0);
+		String dataReturned = someData.getString("sharedString", "no one");
+		String dataReturned1 = someData.getString("sharedemail", "Type in email...");
+		target.setText(dataReturned);
+		yourtarget.setText(dataReturned1);
+
+		String targetString = target.getText().toString();
+		String yourtargetString = yourtarget.getText().toString();
+		
+		newTarget.setVisibility(View.INVISIBLE);
+		
+		
+		if (!yourtargetString.equals("Type in email...")){
+		typeEmail.setVisibility(View.INVISIBLE);
+		confirmEmail.setVisibility(View.INVISIBLE);
+		}
+
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		final Random randomGenerator = new Random();
+
+		String targetString = target.getText().toString();
+		String yourTargetString1 = yourtarget.getText().toString();
+		
+		switch (arg0.getId()){
+		case R.id.bConfirmEmail:
+		if (yourTargetString1.equals("Type in email..."))
+		yourTargetString1 = typeEmail.getText().toString();
+		yourtarget.setText(yourTargetString1);
+		typeEmail.setVisibility(View.INVISIBLE);
+		confirmEmail.setVisibility(View.INVISIBLE);
+		newTarget.setVisibility(View.VISIBLE);
+		break;
+		}
+
+		if (targetString.equals("no one")) {
+			switch (arg0.getId()) {
+			case R.id.bGetNewTarget:
+				SharedPreferences.Editor editor = someData.edit(); //"hey we are going to edit here"
+				editor.putString("sharedemail", yourTargetString1);
+				editor.commit();
+				ParseQuery query = new ParseQuery("Register");
+				query.whereEqualTo("istarget", false);
+				query.whereNotEqualTo("email", yourTargetString1);
+				query.whereNotEqualTo("dead", true);
+				query.findInBackground(new FindCallback() {
+
+					@Override
+					public void done(List<ParseObject> objects,
+							ParseException arg1) {
+						// TODO Auto-generated method stub
+						int number = objects.size();
+						String number1 = Integer.toString(number);
+						target.setText(number1);
+						final int random2 = randomGenerator.nextInt(number);
+							final ParseObject targetO = objects.get(random2);
+							//attacker.saveInBackground(new SaveCallback() {
+							//	public void done(ParseException e) {
+//
+							//		String playerName2 = object2.getString("fullname");
+							//		object1.put("istarget", true);
+							//		object1.put("target", playerName2);
+//
+							//		object1.saveInBackground();
+							//	}
+							//});
+							final String yourTargetString = yourtarget.getText().toString();
+							ParseQuery query1 = new ParseQuery("Register");
+							query1.whereEqualTo("email", yourTargetString);
+							query1.getFirstInBackground(new GetCallback() {
+								public void done(ParseObject object,ParseException e) {
+									if (object == null) {
+										Toast t = Toast.makeText(assignment.this, "Weird",Toast.LENGTH_SHORT);
+										t.show();
+									} else {
+										String playerName2 = targetO.getString("fullname");
+										object.put("target", playerName2);
+										object.put("hastarget", true);
+										object.saveInBackground();
+										target.setText(playerName2);
+										SharedPreferences.Editor editor = someData.edit(); //"hey we are going to edit here"
+										editor.putString("sharedString", playerName2);
+										editor.putString("sharedemail", yourTargetString);
+										editor.commit();
+										
+									}
+								}
+							});
+							
+							String playerName2 = targetO.getString("fullname");
+							ParseQuery query2 = new ParseQuery("Register");
+							query2.whereEqualTo("fullname", playerName2);
+							query2.getFirstInBackground(new GetCallback() {
+								public void done(ParseObject object,ParseException e) {
+									if (object == null) {
+										Toast t = Toast.makeText(assignment.this, "targetName error",Toast.LENGTH_SHORT);
+										t.show();
+									} else {
+										object.put("istarget", true);
+										object.saveInBackground();
+										
+										
+									}
+								}
+							});
+
+						
+						// The query was successful.
+
+					}
+
+				});
+
+				newTarget.setVisibility(View.INVISIBLE);
+
+				break;
+			}
+
+		} else {
+			newTarget.setVisibility(View.INVISIBLE);
+		}
+	}
+	
+}
+

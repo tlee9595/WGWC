@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TabHost
+        android:id="@+id/thActions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <LinearLayout
+                    android:id="@+id/tabIAmAgent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type in your email (IT&apos;S A MUST)" />
+
+                    <EditText
+                        android:id="@+id/etActionPassword1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10" >
+
+                        <requestFocus />
+                    </EditText>
+
+                    <TextView
+                        android:id="@+id/tvAgentEX"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Press if you have yelled 'I am agent ___', but have not finished the assignment. "
+                        android:visibility="invisible" />
+
+                    <Button
+                        android:id="@+id/bConfirm1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Confirm" />
+
+                    <Button
+                        android:id="@+id/bIAmAgent"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="I am agent ___!"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabKill"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type in your email (IT&apos;S A MUST)" />
+
+                    <EditText
+                        android:id="@+id/etActionPassword2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10" >
+                    </EditText>
+
+                    <TextView
+                        android:id="@+id/tvKillEX"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Press if you have successfully finished your assignment."
+                        android:visibility="invisible" />
+
+                    <Button
+                        android:id="@+id/bConfirm2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Confirm" />
+
+                    <Button
+                        android:id="@+id/bKill"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Kill"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabDead"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type in your email (IT&apos;S A MUST)" />
+
+                    <EditText
+                        android:id="@+id/etActionPassword3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10" >
+                    </EditText>
+
+                    <TextView
+                        android:id="@+id/tvDeadEX"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Press if you are killed by an attacking agent."
+                        android:visibility="invisible" />
+
+                    <Button
+                        android:id="@+id/bConfirm3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Confirm" />
+
+                    <Button
+                        android:id="@+id/bDead"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Dead"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabDefend"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type in your email (IT&apos;S A MUST)" />
+
+                    <EditText
+                        android:id="@+id/etActionPassword4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10" >
+                    </EditText>
+
+                    <TextView
+                        android:id="@+id/tvDefendEX"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Press if you were being attacked but killed the attacking agent."
+                        android:visibility="invisible" />
+
+                    <Button
+                        android:id="@+id/bConfirm4"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Confirm" />
+
+                    <Button
+                        android:id="@+id/bDefend"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Defend"
+                        android:visibility="invisible" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

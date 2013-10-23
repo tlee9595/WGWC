@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type in your Nickname ----(This will be your login ID and your disguise name)" />
+
+    <EditText
+        android:id="@+id/etCreateNickName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint = "eg.spongebob killerpants (CASE SENSITIVE)"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="First and Last name" />
+
+    <EditText
+        android:id="@+id/etCreateFullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="eg.Thomas Lee"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/tvCreateEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email" />
+
+    <EditText
+        android:hint ="example123@email.com"
+        android:id="@+id/etCreateEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password ---- (Don't worry about me getting your password, even I can't see it!)" />
+
+    <EditText
+        android:id="@+id/etCreatePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="NUMBERS AND ALPHABET LETTERS ONLY!" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100" >
+
+        <Button
+            android:id="@+id/bRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:text="Finish"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/bConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:text="Confirm" />
+        >
+    </LinearLayout>
+
+</LinearLayout>

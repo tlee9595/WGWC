@@ -1,0 +1,86 @@
+package com.tommyHlee.hd;
+
+import com.parse.Parse;
+import com.parse.ParseUser;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+public class MainScreen extends Activity implements OnClickListener {
+
+	Button  actions, assignment;
+	ParseUser user = new ParseUser();
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.mainscreen);
+		Parse.initialize(this, "UdoENvKtYz7Z6gTE0PSv8aZHb2NBjbiaO21Ra2WF",
+				"OLQ3nb93a9akB8thUQ4zSYhgxyMehVGheAyI2pRJ");
+
+		actions = (Button) findViewById(R.id.bActions);
+		assignment = (Button) findViewById(R.id.bAssignment);
+
+		actions.setOnClickListener(this);
+		assignment.setOnClickListener(this);
+
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		switch (arg0.getId()) {
+		
+		case R.id.bActions:
+			Intent actions = new Intent("com.tommyHlee.hd.ACTIONS");
+			startActivity(actions);
+			break;
+		case R.id.bAssignment:
+			Intent assignment1 = new Intent("com.tommyHlee.hd.ASSIGNMENT");
+			startActivity(assignment1);
+			break;
+		}
+
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(android.view.Menu menu) {
+		// TODO Auto-generated method stub
+		super.onCreateOptionsMenu(menu);
+		MenuInflater blowUp = getMenuInflater();
+		blowUp.inflate(R.menu.activity_main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+		case R.id.iLogout:
+			ParseUser.logOut();
+			ParseUser currentUser = ParseUser.getCurrentUser(); // this will now
+																// be null
+			Intent loginScreen = new Intent("com.tommyHlee.hd.STARTINGPOINT");
+			startActivity(loginScreen);
+			break;
+		case R.id.preferences:
+			
+			break;
+
+		case R.id.exit:
+			finish();
+			break;
+		}
+
+		return false;
+	}
+
+}
+

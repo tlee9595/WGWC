@@ -1,0 +1,131 @@
+package com.tommyHlee.hd;
+
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class CreateAccount extends Activity implements OnClickListener {
+
+	EditText createNickName;
+	EditText createPassword;
+	EditText createName, createEmail;
+	Button register1, confirm;
+	
+	ParseUser user = new ParseUser();
+	int count = 0;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.createaccount);
+		Parse.initialize(this, "UdoENvKtYz7Z6gTE0PSv8aZHb2NBjbiaO21Ra2WF",
+				"OLQ3nb93a9akB8thUQ4zSYhgxyMehVGheAyI2pRJ");
+
+		createNickName = (EditText) findViewById(R.id.etCreateNickName);
+		createPassword = (EditText) findViewById(R.id.etCreatePassword);
+		createName = (EditText) findViewById(R.id.etCreateFullName);
+		register1 = (Button) findViewById(R.id.bRegister);
+		confirm = (Button) findViewById(R.id.bConfirm);
+		createEmail = (EditText) findViewById(R.id.etCreateEmail);
+
+		register1.setOnClickListener(this);
+		confirm.setOnClickListener(this);
+		
+		
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.bConfirm:
+
+			String blank = "";
+			String isBlank = createNickName.getText().toString();
+
+			if ((createNickName.getText().toString().equals(""))
+					|| (createPassword.getText().toString().equals(""))
+					|| (createName.getText().toString().equals(""))) {
+				Toast blankBoxes = Toast.makeText(CreateAccount.this,
+						"You left some empty, fill them in!",
+						Toast.LENGTH_SHORT);
+				blankBoxes.show();
+
+			} else {
+				register1.setVisibility(View.VISIBLE);
+			}
+			break;
+
+		case R.id.bRegister:
+
+			parseBro();
+
+			break;
+		}
+
+	}
+
+	void parseBro() {
+
+		user.setUsername(createNickName.getText().toString());
+		user.setPassword(createPassword.getText().toString());
+		user.setEmail(createEmail.getText().toString());
+
+		ParseObject register = new ParseObject("Register");
+		register.put("fullname", createName.getText().toString());
+		register.put("agent", createNickName.getText().toString());
+		register.put("dead", false);
+		register.put("iamagent", false);
+		register.put("hastarget", false);
+		register.put("istarget", false);
+		register.put("target", "noone");
+		register.put("email", createEmail.getText().toString());
+		register.saveInBackground();
+		
+		
+
+		user.signUpInBackground(new SignUpCallback() {
+			public void done(ParseException e) {
+				if (e == null) {
+					ParseObject register = new ParseObject("Register");
+					register.put("fullname", createName.getText().toString());
+					register.put("agent", createNickName.getText().toString());
+					register.put("dead", false);
+					register.put("iamagent", false);
+					register.put("hastarget", false);
+					register.put("istarget", false);
+					register.put("target", "noone");
+					Intent loginScreen1 = new Intent(
+							"com.tommyHlee.hd.STARTINGPOINT");
+					startActivity(loginScreen1);
+					
+
+					// Hooray! Let them use the app now.
+				} else {
+					Toast error = Toast
+							.makeText(
+									CreateAccount.this,
+									"I think that NickName or Email is already taken. Try something else.",
+									Toast.LENGTH_SHORT);
+					error.show();
+					// Sign up didn't succeed. Look at the ParseException
+					// to figure out what went wrong
+				}
+			}
+		});
+	}
+
+}
+
